@@ -1,9 +1,17 @@
 import express, {Request, Response} from "express"
-import { getPlayerService } from "../services/players/players-services";
+import { getPlayerByIdService, getPlayerService } from "../services/players/players-services";
 import { ok } from "../utils/http-helper";
 
 export const getPlayer = async (req: Request, res: Response) => {
     const HttpResponse = await getPlayerService();
     
     res.status(HttpResponse.statusCode).json(HttpResponse.body);
+}
+
+export const getPlayerById = async (req: Request, res: Response)  => {
+    const id = parseInt(req.params.id);
+
+    const httpResponse = await getPlayerByIdService(id);
+
+    res.status(httpResponse.statusCode).json(httpResponse.body);
 }
